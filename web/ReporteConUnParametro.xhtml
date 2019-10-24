@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html 
+    xmlns="http://www.w3.org/1999/xhtml"   
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+    lang="en">
+
+    <h:head>
+        <title>Recibos a Empleados</title>
+        <meta charset="utf-8"/>
+        <meta name="description" content="Reporte Impresion de recibos"/>
+        <meta name="author" content="Allan Ramiro Flores"/>
+
+    </h:head>
+
+    <!-- Esta pagina consume el controlador ImprimirReciboBean -->
+
+    <h:form id="reporte" style="margin-left: 10%; margin-top: 5%; width: 60%; height: 40%">
+        <p:panel header="Impresión recibos" > 
+
+            <h:panelGrid columns="3">
+                <p:outputLabel value="Ingrese el Nro de Recibo:"/>
+                <h:inputText value="#{ImprimeReciboBean.nro_recibo}" />
+                <h:commandButton value="Imprimir" class="btn btn-primary" 
+                                 actionListener="#{ImprimeReciboBean.rptRecibo()}"/>
+            </h:panelGrid>
+        </p:panel>
+    </h:form>
+</html>

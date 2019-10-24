@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html 
+    xmlns="http://www.w3.org/1999/xhtml"   
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+    lang="en">
+
+    <h:head>
+        <meta charset="UTF-8"/>
+    </h:head>
+
+   <!-- Esta pagina consume el controlador ImprimirAltasBean -->
+    <h:body>
+                    <h:form id="reporte" style="margin-left: 35%; margin-top: 5%; width: 45%; height: 40%;">
+                        <p:panel header="Reporte de nuevos empleados">
+
+                            <h:panelGrid columns="1">
+                                <p:outputLabel value="Fecha Inicial"/>
+                                <p:datePicker value="#{ImprimirAltas.fdesde}" showButtonBar="true" pattern="dd/MM/yyyy" />
+                                <p:outputLabel value="Fec. Finalización"/>
+                                <p:datePicker  value="#{ImprimirAltas.fhasta}" showButtonBar="true" pattern="dd/MM/yyyy"/>
+                            </h:panelGrid>
+                            <br/>
+                                <h:commandButton value="Imprimir" class="btn btn-primary" 
+                                                 actionListener="#{ImprimirAltas.rptImprimirAltas()}"/>
+                        </p:panel>
+
+                    </h:form>
+   
+    </h:body>
+</html>

@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rptaltas" language="groovy" pageWidth="612" pageHeight="792" columnWidth="602" leftMargin="5" rightMargin="5" topMargin="10" bottomMargin="10" uuid="b96aec54-dd88-4483-a169-3d9543742d16">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="p_desde" class="java.sql.Timestamp">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="p_hasta" class="java.sql.Timestamp">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select cod_empleado, primer_apellido, segundo_apellido, nombres, fec_alta, Year(CURRENT_DATE) - year(fecha_nac) as edad
+from emp_mae
+where fec_alta between $P{p_desde} and $P{p_hasta}]]>
+	</queryString>
+	<field name="cod_empleado" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="primer_apellido" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="segundo_apellido" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nombres" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fec_alta" class="java.sql.Timestamp">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="edad" class="java.lang.Long"/>
+	<variable name="pnombre" class="java.lang.String"/>
+	<variable name="total_cumpleaneros" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$F{cod_empleado}]]></variableExpression>
+	</variable>
+	<variable name="var_edad" class="java.lang.Integer"/>
+	<variable name="fimpreso" class="java.util.Date" calculation="System"/>
+	<pageHeader>
+		<band height="76" splitType="Stretch">
+			<staticText>
+				<reportElement x="-418" y="-135" width="331" height="22" uuid="33456395-c9df-4284-a730-c684dc802ab9"/>
+				<textElement>
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<text><![CDATA[Listado de Cumpleñeros]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="110" y="21" width="348" height="23" uuid="a13185e0-658c-47f0-9519-071bdccd5db1"/>
+				<textElement>
+					<font fontName="Tahoma" size="16" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Recursos Humanos / Modulo de Planilla]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="110" y="44" width="210" height="20" uuid="9351b5e5-d1f8-4f37-a305-fbdabb3864ad"/>
+				<textElement>
+					<font fontName="Arial" size="14" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Listado de nuevos empleados]]></text>
+			</staticText>
+			<image scaleImage="FillFrame">
+				<reportElement x="13" y="0" width="75" height="64" uuid="82277cde-3b68-42c5-87c6-020af718019c"/>
+				<imageExpression><![CDATA["J:\\fotos\\RRHHB.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="46" splitType="Stretch">
+			<staticText>
+				<reportElement x="13" y="17" width="331" height="20" uuid="b5c2a803-1b41-4ebf-b5f5-910c917e0b78"/>
+				<textElement>
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<text><![CDATA[Empleados]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="370" y="0" width="77" height="37" uuid="d676f2e5-f564-494a-8b62-b24e567b2c3f"/>
+				<textElement>
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<text><![CDATA[Fec. Ingreso]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="485" y="17" width="55" height="20" uuid="aeaf11b9-4ef9-4a90-b215-12e5693d26f4"/>
+				<text><![CDATA[Edad]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="37" width="572" height="1" uuid="83d2bd0e-0205-4b2c-a864-d440ba2b8c16"/>
+				<graphicElement>
+					<pen lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="23" splitType="Stretch">
+			<textField>
+				<reportElement x="13" y="1" width="331" height="20" uuid="62e1e3da-53e1-4054-95c9-3f2ed12f63e9"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{primer_apellido} + ' ' +$F{segundo_apellido} + ' ' + $F{nombres}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="370" y="0" width="77" height="20" uuid="c4de9c1f-3265-4f76-aee6-8200927d10a3"/>
+				<textFieldExpression><![CDATA[$F{fec_alta}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="485" y="1" width="55" height="20" uuid="16b121c3-2c4a-4d8a-b4db-08ecd816714a"/>
+				<textFieldExpression><![CDATA[$F{edad}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="30" splitType="Stretch">
+			<textField>
+				<reportElement x="458" y="1" width="100" height="20" uuid="ac2c320c-52c3-401a-95c9-0d6d25a0c9ab"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="393" y="1" width="54" height="20" uuid="161c6561-ad63-4a28-bfaa-371295d829b6"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[Pagina]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="266" y="5" width="61" height="20" uuid="ca2e64f1-0209-49ed-b4a1-5600eb2cbfe2"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="217" y="5" width="38" height="16" uuid="d1063ea8-95d2-448d-991f-20de5424d837"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[Impreso:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="0" width="572" height="1" uuid="be90f7cf-41eb-43c1-8dd2-c3b0220c84fc"/>
+				<graphicElement>
+					<pen lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement x="13" y="1" width="186" height="20" uuid="8cb49024-92ea-4985-b7ba-0d30709c7aa1"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[rptcumpleaneros]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="50">
+			<textField>
+				<reportElement x="162" y="10" width="77" height="20" uuid="5b8940d7-3fec-4108-8ff5-1bd7e975af33"/>
+				<textFieldExpression><![CDATA[$V{total_cumpleaneros}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="13" y="10" width="134" height="20" uuid="622d8ed3-62c2-401c-bc71-dc8c27991082"/>
+				<textElement>
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<text><![CDATA[Total de empleados]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="0" width="572" height="1" uuid="0d4c629c-2ecb-4f6b-961b-eb113b13dd35"/>
+				<graphicElement>
+					<pen lineStyle="Dotted"/>
+				</graphicElement>
+			</line>
+		</band>
+	</summary>
+</jasperReport>
